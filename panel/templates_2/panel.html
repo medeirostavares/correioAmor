@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Correio do Amor - Mural de Recados</title>
+		<meta name="description" content="Correio do Amor" />
+		<meta name="keywords" content="correio, amor, setembro amarelo, desabafo, ajuda" />
+		<meta name="author" content="IFTO - Dianópolis" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="../static/stylesheets/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="../static/stylesheets/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="../static/stylesheets/css/component.css" />
+		<script src="../static/stylesheets/js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								<li class="gn-search-item">
+									<input placeholder="Search" type="search" class="gn-search">
+									<a class="gn-icon gn-icon-search"><span>Search</span></a>
+								</li>
+								<li>
+									<a class="gn-icon gn-icon-download">Downloads</a>
+									<ul class="gn-submenu">
+										<li><a class="gn-icon gn-icon-illustrator">Vector Illustrations</a></li>
+										<li><a class="gn-icon gn-icon-photoshop">Photoshop files</a></li>
+									</ul>
+								</li>
+								<li><a class="gn-icon gn-icon-cog">Settings</a></li>
+								<li><a class="gn-icon gn-icon-help">Help</a></li>
+								<li>
+									<a class="gn-icon gn-icon-archive">Archives</a>
+									<ul class="gn-submenu">
+										<li><a class="gn-icon gn-icon-article">Articles</a></li>
+										<li><a class="gn-icon gn-icon-pictures">Images</a></li>
+										<li><a class="gn-icon gn-icon-videos">Videos</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li><a href=""><font color="#b8860b" size="">CORREIO DO AMOR</font></a></li>
+                <li><a class="codrops-icon codrops-icon-drop" href=""><span>Recados</span></a></li>
+				<!--<li><a class="codrops-icon codrops-icon-prev" href=""><span>Recados</span></a></li>-->
+				<li><a class="codrops-icon" href=""><span>Sobre</span></a></li>
+
+			</ul>
+			<header>
+				<h1><font color="#ffd700" size="+3">CORREIO DO AMOR</font><span> </span></h1>
+			</header> 
+		</div><!-- /container -->
+		<script src="../static/stylesheets/js/classie.js"></script>
+		<script src="../static/stylesheets/js/gnmenu.js"></script>
+		<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+		</script>
+
+        <header>
+        <div id="center">
+                {% if msg_enviada_sucesso %}
+                    <div class="tarja_alert">
+                    <font color="#fff" size="1">
+
+                            <h4>
+                                &nbsp;{{ msg_enviada_sucesso }}
+                            </h4>
+
+                    </font>
+                    </div>
+                {% endif %}
+
+            <div class="article_wrapper">
+				<h2>Mural de Recados</h2>
+
+                {% for recado in recado %}
+                    {% if recado.status == 'AP' and recado.recado.count != 0 %}
+                    <div class="tit_coment_artigo">
+                        <h5> &nbsp;&nbsp;Recado de <font color="#ffe4c4"> {{ recado.apelido }} </font></h5>
+                    <div class="conteudo_artigo">
+
+
+
+                            {{ recado }}
+
+
+
+                    </div>
+
+
+                    <div class="data_artigo">
+
+                        <table>
+                            <tr>
+
+                                <td>
+                                    <a href="comentario/{{ recado.id }}" class="button"> Comentar Recado</a>
+                                    <a href="denuncia.html?id={{ recado.cod_recado }}" class="button"> Denunciar</a>
+                                    Publicado há {{ recado.publicacao|timesince }}
+                                </td>
+                            </tr>
+     						 </table>
+                    </div>
+
+                    <!--
+                    <div class="conteudo_artigo">
+                        <table>
+                            <tr>
+                                <td>
+                                    <a href="comentario/{{ recado.id }}" class="button"> Comentar Recado</a>
+                                    <a href="denuncia.html?id={{ recado.id }}" class="button"> Denunciar</a>
+                                </td>
+                            </tr>
+     						 </table>
+                    </div>
+                    -->
+
+
+                        {% for comentarios in comentarios %}
+                            {% if comentarios.status == 'AP' and comentarios.recado_inline_id == recado.id %}
+                        <div class="tit_coment_recado">
+                            <h4> &nbsp;&nbsp;Comentário de <font color="#8b008b"> {{ comentarios.apelido }} </font></h4>
+                        </div>
+                        <div class="conteudo_artigo">
+
+
+                            {{ comentarios }}
+
+                        </div>
+                    <div class="data_artigo">
+                        Publicado há {{ comentarios.publicacao|timesince }}
+                    </div>
+                            {% endif %}
+                    {% endfor %}
+
+  			</div>
+
+                        <div class="spacer">
+                            <h4> &nbsp; </h4>
+                        </div>
+			{% endif %}
+
+
+
+
+                {% endfor %}
+
+
+			</div>
+
+            <form method="post">
+
+            <div class="article_wrapper">
+
+  				<div class="titulo_artigo">
+
+                    <h4>Deixe o seu recado... </h4>
+    				<div class="conteudo_artigo">
+
+      					<table>
+                                {% csrf_token %}
+
+                                {{ formulario_envio }}
+
+                                <tr>
+
+                                 <th><BR>&nbsp;</th>
+        							 <td>
+                                         <input type="submit" value="Enviar Recado" class="button"/>
+                                         <a class="button"> Termos e Condições de Uso </a>
+                                     </td>
+
+                                </tr>
+
+     						 </table>
+
+
+                    </div>
+
+
+
+  			</div>
+
+			</div>
+            </form>
+
+			<hr />
+
+        </div>
+        </header>
+
+    </body>
+</html>

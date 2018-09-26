@@ -1,0 +1,67 @@
+<!-- COMENTÁRIOS-->
+
+<div id="center">
+    {% if msg_enviada_sucesso %}
+        <div class="tarja_alert">
+        <font color="#fff" size="1">
+
+                <h4>
+                    &nbsp;{{ msg_enviada_sucesso }}
+                </h4>
+
+        </font>
+        </div>
+    {% endif %}
+
+    <div class="article_wrapper">
+        <h2>Comentar Postagem</h2>
+
+
+            {% if recado.status == 'AP' %}
+            <div class="tit_coment_artigo">
+                <h5> &nbsp;&nbsp;Recado de <font color="#ffe4c4"> {{ recado.apelido }} </font></h5>
+            <div class="conteudo_artigo">
+
+                {{ recado }}
+
+            </div>
+
+            <div class="data_artigo">
+                Publicado há {{ recado.publicacao|timesince }}
+            </div>
+
+
+    </div>
+    {% endif %}
+
+
+    </div>
+
+    <form method="post">
+
+        <div class="article_wrapper">
+
+                <div class="titulo_artigo">
+
+                    <h4>Seu comentário... </h4>
+                    <div class="conteudo_artigo">
+
+                        <table>
+                                {% csrf_token %}
+                                {{ formulario_envio }}
+
+                                <tr>
+
+                                 <th><BR>&nbsp;</th>
+                                     <td>
+                                         <input type="submit" value="Enviar Comentário" class="button"/>
+                                         <a class="button"> Termos e Condições de Uso </a>
+                                     </td>
+                                </tr>
+
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="no-js">
+
+    {% include 'cabecalho_menu.html' %}
+
+    <body class="body">
+        <div class="center">
+            {% if msg_enviada_sucesso %}
+                    <div class="tarja_alert">
+
+                                <h4>
+                                    &nbsp;{{ msg_enviada_sucesso }}
+                                </h4>
+
+                    </div>
+            {% endif %}
+
+            <div class="article_wrapper">
+
+                <h7><br> &nbsp;Mural de Recados </h7>
+                {% for recado in recado %}
+                    {% if recado.status == 'AP' and recado.recado.count != 0 %}
+                        <div class="tit_coment_artigo">
+                            <h5> &nbsp;&nbsp;Recado de <font style="font-weight: bolder" color="#daa520"> {{ recado.apelido }} </font></h5>
+                            <div class="conteudo_artigo">
+                                {{ recado }}
+                            </div>
+                            <div class="data_artigo">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            Publicado há {{ recado.publicacao|timesince }}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                        <a href="comentario/{{ recado.id }}" class="button"> Comentar Recado</a>
+                                        <a href="denuncia.html?id={{ recado.cod_recado }}" class="button"> Denunciar</a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            {% for comentarios in comentarios %}
+                                {% if comentarios.status == 'AP' and comentarios.recado_inline_id == recado.id %}
+                                    <div class="tit_coment_recado">
+                                    <h4> &nbsp;&nbsp;Comentário de <font style="font-weight: bolder" color="#00bfff"> {{ comentarios.apelido }}</font> para <font style="font-weight: bolder" color="#daa520">{{ recado.apelido }}</font></h4>
+                                    </div>
+                                    <div class="conteudo_artigo">
+                                        {{ comentarios }}
+                                    </div>
+                                    <div class="data_coment">
+                                        Publicado há {{ comentarios.publicacao|timesince }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="spacer">
+                            <h4> &nbsp; </h4>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <form method="post">
+                <div class="article_wrapper">
+                    <div class="tit_coment_artigo">
+                        <h5>Deixe o seu recado... </h5>
+                        <div class="conteudo_artigo">
+                            <table>
+                                {% csrf_token %}
+
+                                {{ formulario_envio }}
+
+                                <tr>
+                                    <th>
+                                        <BR>
+                                    </th>
+                                         <td>
+                                             <input class="button" type="submit" value="Enviar Recado"/>
+                                             <a href="/termo/" class="button"> Termos e Condições de Uso </a>
+                                         </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+		</div>
+    </body>
+
+    {% include 'rodape.html' %}
+
+</html>

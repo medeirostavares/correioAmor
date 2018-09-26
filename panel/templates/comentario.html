@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" class="no-js">
+
+        {% include 'cabecalho_menu.html' %}
+
+        <div class="center">
+
+            {% if msg_enviada_sucesso %}
+                    <div class="tarja_alert">
+
+                                <h4>
+                                    &nbsp;{{ msg_enviada_sucesso }}
+                                </h4>
+
+                    </div>
+            {% endif %}
+
+            <div class="article_wrapper">
+                <h2>Comentar Postagem</h2>
+
+
+                    {% if recado.status == 'AP' %}
+                    <div class="tit_coment_artigo">
+                        <h5> &nbsp;&nbsp;Recado de <font style="font-weight: bolder" color="#daa520"> {{ recado.apelido }} </font></h5>
+                    <div class="conteudo_artigo">
+
+                        {{ recado }}
+
+                    </div>
+
+                    <div class="data_artigo">
+                        Publicado há {{ recado.publicacao|timesince }}
+                    </div>
+
+
+            </div>
+            {% endif %}
+
+
+            </div>
+
+            <form method="post">
+
+                <div class="article_wrapper">
+
+                        <div class="tit_coment_artigo_2">
+
+                            <h4>Seu comentário... </h4>
+                            <div class="conteudo_artigo">
+
+                                <table>
+                                        {% csrf_token %}
+                                        {{ formulario_envio }}
+
+                                        <tr>
+
+                                         <th><BR>&nbsp;</th>
+                                             <td>
+                                                 <input type="submit" value="Enviar Comentário" class="button"/>
+                                                 <a href="/termo/" class="button"> Termos e Condições de Uso </a>
+                                             </td>
+                                        </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </form>
+        </div>
+
+
+        {% include 'rodape.html' %}
+
+</html>
